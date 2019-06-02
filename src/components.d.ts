@@ -9,12 +9,21 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
+  interface AppDatetime {
+    'selectedDate': Date;
+  }
   interface AppHome {}
   interface AppRoot {}
 }
 
 declare global {
 
+
+  interface HTMLAppDatetimeElement extends Components.AppDatetime, HTMLStencilElement {}
+  var HTMLAppDatetimeElement: {
+    prototype: HTMLAppDatetimeElement;
+    new (): HTMLAppDatetimeElement;
+  };
 
   interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {}
   var HTMLAppHomeElement: {
@@ -28,16 +37,22 @@ declare global {
     new (): HTMLAppRootElement;
   };
   interface HTMLElementTagNameMap {
+    'app-datetime': HTMLAppDatetimeElement;
     'app-home': HTMLAppHomeElement;
     'app-root': HTMLAppRootElement;
   }
 }
 
 declare namespace LocalJSX {
+  interface AppDatetime extends JSXBase.HTMLAttributes<HTMLAppDatetimeElement> {
+    'onOnDateSelected'?: (event: CustomEvent<Date>) => void;
+    'selectedDate'?: Date;
+  }
   interface AppHome extends JSXBase.HTMLAttributes<HTMLAppHomeElement> {}
   interface AppRoot extends JSXBase.HTMLAttributes<HTMLAppRootElement> {}
 
   interface IntrinsicElements {
+    'app-datetime': AppDatetime;
     'app-home': AppHome;
     'app-root': AppRoot;
   }
