@@ -6,29 +6,39 @@
 
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-import {
-  MatchResults,
-} from '@stencil/router';
 
 
 export namespace Components {
   interface AppHome {}
-  interface AppProfile {
-    'match': MatchResults;
-  }
   interface AppRoot {}
 }
 
-declare namespace LocalJSX {
-  interface AppHome extends JSXBase.HTMLAttributes {}
-  interface AppProfile extends JSXBase.HTMLAttributes {
-    'match'?: MatchResults;
+declare global {
+
+
+  interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {}
+  var HTMLAppHomeElement: {
+    prototype: HTMLAppHomeElement;
+    new (): HTMLAppHomeElement;
+  };
+
+  interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {}
+  var HTMLAppRootElement: {
+    prototype: HTMLAppRootElement;
+    new (): HTMLAppRootElement;
+  };
+  interface HTMLElementTagNameMap {
+    'app-home': HTMLAppHomeElement;
+    'app-root': HTMLAppRootElement;
   }
-  interface AppRoot extends JSXBase.HTMLAttributes {}
+}
+
+declare namespace LocalJSX {
+  interface AppHome extends JSXBase.HTMLAttributes<HTMLAppHomeElement> {}
+  interface AppRoot extends JSXBase.HTMLAttributes<HTMLAppRootElement> {}
 
   interface IntrinsicElements {
     'app-home': AppHome;
-    'app-profile': AppProfile;
     'app-root': AppRoot;
   }
 }
@@ -42,35 +52,4 @@ declare module "@stencil/core" {
   }
 }
 
-
-declare global {
-
-
-
-  interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {}
-  var HTMLAppHomeElement: {
-    prototype: HTMLAppHomeElement;
-    new (): HTMLAppHomeElement;
-  };
-
-  interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {}
-  var HTMLAppProfileElement: {
-    prototype: HTMLAppProfileElement;
-    new (): HTMLAppProfileElement;
-  };
-
-  interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {}
-  var HTMLAppRootElement: {
-    prototype: HTMLAppRootElement;
-    new (): HTMLAppRootElement;
-  };
-
-  interface HTMLElementTagNameMap {
-    'app-home': HTMLAppHomeElement;
-    'app-profile': HTMLAppProfileElement;
-    'app-root': HTMLAppRootElement;
-  }
-
-  interface ElementTagNameMap extends HTMLElementTagNameMap {}
-}
 
